@@ -7,11 +7,12 @@ import './App.css';
 
 class App extends Component {
 
-constructor(props){  
+constructor(props){
   super(props);
+  // no need to bind arrow functions
   this.onSubmitForm = this.onSubmitForm.bind(this);
   this.getMovies=this.getMovies.bind(this);
-  this.state={data:{}};
+  this.state={}; //changed initital state
 }
 
 getMovies = (term,quality) => {
@@ -29,6 +30,7 @@ getMovies = (term,quality) => {
 }
 
 onSubmitForm(term,quality,genre,minimum_rating,sort_by){
+  //update state on change, not on submit
   this.setState({
     query_term:term,
     quality:quality,
@@ -36,7 +38,7 @@ onSubmitForm(term,quality,genre,minimum_rating,sort_by){
     minimum_rating:minimum_rating,
     sort_by:sort_by
   });
-  this.getMovies(this.state.query_term,this.state.quality);
+  this.getMovies(this.state.query_term,this.state.quality); // will not work. setState is asynchronous. there is a second argument to setState that's a callback function
   console.log("Parent:",this.state);
 }
   render() {
